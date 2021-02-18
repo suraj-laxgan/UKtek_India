@@ -28,6 +28,13 @@
                         @csrf
                         <div>
                             <input type="hidden" placeholder="Study Material Id" name="study_material_id" value="{{ $studyedit->study_material_id }}" >
+                            
+                            <input type="hidden" name="study_material_id1" value="{{ $study_material_id }}" >
+                            <input type="hidden" name="creator_name1" value="{{ $creator_name }}" >
+                            <input type="hidden" name="f_name1" value="{{ $f_name }}" >
+                            <input type="hidden" name="select_type1" value="{{ $select_type }}" >
+                            <input type="hidden" name="grade1" value="{{ $grade }}" >
+                            <input type="hidden" name="short_description1" value="{{ $short_description }}" >
                         </div>
                         <div>
                             <select name="creator_name" id="creator_name"  class='drop'>

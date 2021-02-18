@@ -64,7 +64,8 @@ class AdminHomeController extends Controller
       $select_type = request('select_type');
       $short_description = request('short_description');
       $grade = request('grade');
-      if($study_material_id != '' || $creator_name != '' || $f_name != '' || $select_type != '' || $short_description != '' || $grade != ''){
+      
+       if($study_material_id != '' || $creator_name != '' || $f_name != '' || $select_type != '' || $short_description != '' || $grade != ''){
         $query  = StudyMaterial::query();
         $all_study_material = '';
         if($study_material_id != '')
@@ -97,17 +98,25 @@ class AdminHomeController extends Controller
         $query = $query->where('grade', '=', $grade);
         }
 
-        $query1 =  $query->select('study_material_id','creator_name','f_name','select_type','short_description','grade','material');
-        //$studyviews = $query->get();
-        $studyviews = $query->paginate('3');
-        
-      }
+        $query =  $query->select('study_material_id','creator_name','f_name','select_type','short_description','grade','material');
+        //$studyview11 = $query->get();
+        $studyview11 = $query->paginate(3);
+      
+      $studyview11->appends([
+        'study_material_id' =>$study_material_id,
+        'creator_name' =>$creator_name,
+        'f_name' =>$f_name,
+        'select_type' =>$select_type,
+        'short_description' =>$short_description,
+        'grade' =>$grade, 
+      ]);
+       }
       else{
-        $studyviews=[]; 
+        $studyview11=[]; 
       }
-      // $studyviews = $query->count();
-     // $studyviews=StudyMaterial::all(); ////// (show the all data to the database )/////////
-      return view('admin.studyMaterialShow',['studyview'=>$studyviews]);
+      
+     // $studyview=StudyMaterial::all(); ////// (show the all data to the database )/////////
+      return view('admin.studyMaterialShow',compact('studyview11'));
     }
 
     ////////////////////////////////////////////// Study Material Edit Page ////////////////////////////////////
@@ -115,37 +124,83 @@ class AdminHomeController extends Controller
     //////////////// for viewing edit  //////////////
     public function StudyMaterialEdit($id)
     {
-         $studyedits = StudyMaterial::where('study_material_id', $id)->first();
+         $studyedit = StudyMaterial::where('study_material_id', $id)->first();
          //$studyedits = StudyMaterial::find($id);
          //dd( $studyedits, $id);
-        return view('admin.studyMaterialEdit',['studyedit'=>$studyedits]);
+         $study_material_id=request('study_material_id');
+        $creator_name = request('creator_name');
+        $f_name = request('f_name');
+        $select_type = request('select_type');
+        $short_description = request('short_description');
+        $grade = request('grade');
+        // return $study_material_id;
+        return view('admin.studyMaterialEdit',compact('studyedit','study_material_id','creator_name','f_name','select_type','grade','short_description'));
     }
 
-    //////////////// for viewing edit upload  //////////////
-    public function StudyMaterialEditUpload(Request $req)
+    //////////////// for viewing edit page to upload  //////////////
+    public function StudyMaterialEditUpload(Request $request)
     {
-                              //////////////// for file name with id and file extensation //////////////
+      $study_material_id=request('study_material_id1');
+      $creator_name = request('creator_name1');
+      $f_name = request('f_name1');
+      $select_type = request('select_type1');
+      $short_description = request('short_description1');
+      $grade = request('grade1');
+      // return [$study_material_id, $creator_name, $f_name];
+      //////////////// for file name with id and file extensation //////////////
+      // $upload = $request->file('material');
+      // // dd($upload);
+      // $filename =$request->study_material_id. '.' . $upload->getClientOriginalExtension();
 
-      $upload = $req->file('material');
-      $filename =$req->study_material_id. '.' . $upload->getClientOriginalExtension();
+      $material_file=StudyMaterial::where('study_material_id', $request->study_material_id)->first();
+      // dd($material_file);
+      // unlink('public/study_material_upload/'.$material_file);
+      if($request->file('material') != "" && $material_file->material != ""){
+        unlink(public_path('study_material_upload/'.$material_file->material));
+        $upload = $request->file('material');
+      $filename =$request->study_material_id. '.' . $upload->getClientOriginalExtension();
       //$filename = date('His'). '.' . $upload->getClientOriginalExtension();
       $upload->move(public_path('study_material_upload'), $filename);
+      }
+      elseif($request->file('material') != ""){
+        $upload = $request->file('material');
+      $filename =$request->study_material_id. '.' . $upload->getClientOriginalExtension();
+      //$filename = date('His'). '.' . $upload->getClientOriginalExtension();
+      $upload->move(public_path('study_material_upload'), $filename);
+      }
+      elseif($request->file('material') == ""){
+        $filename = $material_file->material;
+      }
+
+      
 
                           //////////////// for upload edit data in database //////////////
 
-      // $editupques=StudyMaterial::find($req->study_material_id);
-      $editupques=StudyMaterial::where('study_material_id', $req->study_material_id)->first();
-      $editupques->study_material_id=$req->study_material_id;
-      $editupques->creator_name=$req->creator_name;
-      $editupques->f_name=$req->f_name;
-      $editupques->select_type=$req->select_type;
-      $editupques->short_description = $req->short_description;
-      $editupques->grade = $req->grade;
-      $editupques->material = $filename;
+      // $editupques=StudyMaterial::find($request->study_material_id);
+      $editupques=StudyMaterial::where('study_material_id', $request->study_material_id)->first();
+      //$editupques->study_material_id=$request->study_material_id;
+      $editupques->creator_name=$request->creator_name;
+      $editupques->f_name=$request->f_name;
+      $editupques->select_type=$request->select_type;
+      $editupques->short_description = $request->short_description;
+      $editupques->grade = $request->grade;
+      $editupques->material =$filename;
       // $upques->create_dt = date('d-m-Y');
       // $upques->create_time =  date('H:i:s');
       $editupques->save();
-      return redirect('admin_study_show');
+
+    //  StudyMaterial::where('study_material_id',Helper::clean($study_material_id))
+    //   ->update([
+    //   'creator_name' => $request->creator_name,
+    //   'f_name' => $request->f_name,
+    //   'select_type' => $request->select_type,
+    //   'short_description' => $request->short_description,
+    //   'grade' => $request->grade,
+    //   'material' => $r->material,
+      
+    //   ]);
+      // return redirect('admin_study_show');
+      return redirect()->route('admin.study_show',['creator_name'=>$creator_name,'study_material_id'=>$study_material_id,'f_name'=>$f_name, 'select_type'=>$select_type, 'short_description'=>$short_description, 'grade'=>$grade]);
     }
 
 

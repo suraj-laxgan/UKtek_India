@@ -78,8 +78,8 @@
             <div  class='column_middle'>
                 <div style="text-align:center;color:gray"> View Study Material</div>
                 
-                <table width="100%"style="border:1px solid #e6ffff">
-                        <tr style="color:gray;color:#000066 ;font-size:14px; background-color:#e6ffff">
+                <table width="100%"style="border:1px solid #e6ffff;">
+                        <tr style="color:#000066 ;font-size:14px; background-color:#e6ffff;">
                             <th width="15%"> Id</th>
                             <th width="15%">Creator Name</th>
                             <th width="15%"> Name</th>
@@ -88,44 +88,54 @@
                             <th width="5%">Grade</th>
                             <th width="15%">Study Material</th>
                             <th width="10%">Operation</th>
-                        </tr> 
-                        @foreach ($studyview as $studyviews)
+                        </tr>
+                        @foreach ($studyview11 as $study)
                         <tr style="color:gray;font-size:12px;">
-                            <td>{{ $studyviews["study_material_id"]}}</td>
-                            <td>{{ $studyviews["creator_name"]}}</td>
-                            <td>{{ $studyviews["f_name"]}}</td>
-                            <td>{{ $studyviews["select_type"]}}</td>
-                            <td>{{ $studyviews["short_description"]}}</td>
-                            <td>{{ $studyviews["grade"]}}</td>
+                            <td>{{ $study["study_material_id"]}}</td>
+                            <td>{{ $study["creator_name"]}}</td>
+                            <td>{{ $study["f_name"]}}</td>
+                            <td>{{ $study["select_type"]}}</td>
+                            <td>{{ $study["short_description"]}}</td>
+                            <td>{{ $study["grade"]}}</td>
                             <td >
-                                <!-- <img src="{{ asset('study_material_upload/'.$studyviews["material"]) }}" width="100px" height="100px" /> -->
+                                <!-- <img src="{{ asset('study_material_upload/'.$study["material"]) }}" width="100px" height="100px" /> -->
                                 <!-- <video width="130px" height="100px" controls>
-                                    <source src="{{ asset('study_material_upload/'.$studyviews["material"]) }}"" type="video/mp4">
+                                    <source src="{{ asset('study_material_upload/'.$study["material"]) }}"" type="video/mp4">
                                 </video> -->
                                 <!-- <audio  controls>
-                                    <source src="{{ asset('study_material_upload/'.$studyviews["material"]) }}" type="audio/ogg">
-                                    <source src="{{ asset('study_material_upload/'.$studyviews["material"]) }}" type="audio/mpeg">
+                                    <source src="{{ asset('study_material_upload/'.$study["material"]) }}" type="audio/ogg">
+                                    <source src="{{ asset('study_material_upload/'.$study["material"]) }}" type="audio/mpeg">
                                 </audio> -->
-                                @if($studyviews["select_type"] == "video")
-                                    <video width="100%" height="auto" controls>
-                                        <source src="{{ asset('study_material_upload/'.$studyviews["material"]) }}"" type="video/mp4">
+                                @if($study["select_type"] == "video")
+                                    <video height="100" width="150" controls>
+                                        <source src="{{ asset('study_material_upload/'.$study["material"]) }}"" type="video/mp4">
                                     </video>
-                                @elseif($studyviews["select_type"] == "audio")
-                                    <audio controls>
-                                        <source src="{{ asset('study_material_upload/'.$studyviews["material"]) }}" type="audio/mpeg">
+                                @elseif($study["select_type"] == "audio")
+                                    <audio style="width:100%;" controls>
+                                        <source src="{{ asset('study_material_upload/'.$study["material"]) }}" type="audio/mpeg">
                                     </audio>
-                                @elseif($studyviews["select_type"] == "image")
-                                    <img src="{{ asset('study_material_upload/'.$studyviews["material"]) }}" height="auto" width="30%" />       
+                                @elseif($study["select_type"] == "image")
+                                    <img src="{{ asset('study_material_upload/'.$study["material"]) }}" height="100" width="150" />       
                                 @else
-                                    <iframe src="{{ asset('study_material_upload/'.$studyviews["material"]) }} " height="auto" width="100%" scrolling="auto" ></iframe>
+                                    <iframe src="{{ asset('study_material_upload/'.$study["material"]) }} " height="100" width="150" scrolling="auto" ></iframe>
                                 @endif
                             </td>
-                            <!-- <td> <a href={{'admin_study_edit/'.$studyviews['study_material_id']}}><button type="button" class="lightblue_button">Edit Material</button></a></td> -->
-                            <td><a href ="{{url('admin_study_edit/' .$studyviews['study_material_id'])}}"><button type="button" class="lightblue_button">Edit </button></a></td>
+                            <!-- <td> <a href={{'admin_study_edit/'.$study['study_material_id']}}><button type="button" class="lightblue_button">Edit Material</button></a></td> -->
+                            <td><a href ="{{url('admin_study_edit/' .$study['study_material_id'].'?creator_name='.request('creator_name').'&study_material_id='.request('study_material_id').'&f_name='.request('f_name').'&select_type='.request('select_type').'&short_description='.request('short_description').'&grade='.request('grade'))}}"><button type="button" class="lightblue_button">Edit </button></a></td>
                         </tr>
-                        @endforeach    
+                        @endforeach 
                 </table>
-                
+                    <div style="text-align:center;color:gray">
+                        <!-- <div class='pagination'> -->
+                        @if($studyview11)
+                            {{$studyview11->links()}}
+                        @endif
+                        <style>
+                              .w-5 {
+                                   display: none 
+                                }
+                        </style>
+                    </div>
             </div>
             <div class='column'></div>
         </div>

@@ -22,4 +22,5 @@ class Helper
 		return $image;
 	}	
 	// 08/02/21
+	
 }
