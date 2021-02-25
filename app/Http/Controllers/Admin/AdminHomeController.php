@@ -65,7 +65,8 @@ class AdminHomeController extends Controller
       $short_description = request('short_description');
       $grade = request('grade');
       
-       if($study_material_id != '' || $creator_name != '' || $f_name != '' || $select_type != '' || $short_description != '' || $grade != ''){
+      if($study_material_id != '' || $creator_name != '' || $f_name != '' || $select_type != '' || $short_description != '' || $grade != '')
+      {
         $query  = StudyMaterial::query();
         $all_study_material = '';
         if($study_material_id != '')
@@ -102,15 +103,15 @@ class AdminHomeController extends Controller
         //$studyview11 = $query->get();
         $studyview11 = $query->paginate(3);
       
-      $studyview11->appends([
+        $studyview11->appends([
         'study_material_id' =>$study_material_id,
         'creator_name' =>$creator_name,
         'f_name' =>$f_name,
         'select_type' =>$select_type,
         'short_description' =>$short_description,
         'grade' =>$grade, 
-      ]);
-       }
+        ]);
+      }
       else{
         $studyview11=[]; 
       }

@@ -66,10 +66,17 @@
                             <option value=" 10">Grade 10</option>
                         </select>
                     </div>
-                    
-                    <div> 
-                        <!-- <input type="submit" value="Search Study Material" class="blue_button_new"> -->
-                        <button type="button" id="search_all" class="blue_button_new" style="color:#000066">Search Study Material </button>
+                    <div class="row">
+                        <!-- <div class="column_two">
+                            <input type="text" id="frm_dt" name="create_dt" class="drop"  placeholder="From Date">
+                        </div>
+                        <div class="column_two">
+                            <input type="text" id="to_dt" name="create_dt" class="drop"  placeholder="To Date">
+                        </div> -->
+                    </div>
+                     <div> 
+                        <input type="submit" id="search_all" value="Search Study Material" class="blue_button_new"  style="color:#000066">
+                        <!-- <button type="button" id="search_all" class="blue_button_new" style="color:#000066">Search Package </button> -->
                         <a href="{{url('admin_study_show')}}"> <button type="button" class="blue_button_new" style="color:#000066"> Refresh
                         </button></a>
                     </div>
@@ -152,7 +159,9 @@ $("#search_all").click(function(){
   var select_type = $("#select_type").val();
   var short_description = $("#short_description").val();
   var grade = $("#grade").val();
-  window.location ='admin_study_show?creator_name='+creator_name+'&study_material_id='+study_material_id+'&f_name='+f_name+'&select_type='+select_type+'&short_description='+short_description+'&grade='+grade;
+  var create_dt = $("#frm_dt").val();
+  var create_dt = $("#to_dt").val();
+  window.location ='admin_study_show?creator_name='+creator_name+'&study_material_id='+study_material_id+'&f_name='+f_name+'&select_type='+select_type+'&short_description='+short_description+'&grade='+grade+'&frm_dt='+frm_dt+'&to_dt='+to_dt;
   console.log(creator_name);
 });
 ////////  for iframe autoplay off //////////
@@ -165,5 +174,14 @@ $(document).ready(function () {
         }
     });
 });
+////////// for date picker ///////////
+$( "#frm_dt" ).datepicker({
+		  dateFormat: "dd-mm-yy"
+		});
+		
+        $( "#to_dt" ).datepicker({
+		  dateFormat: "dd-mm-yy"
+		});
+
 </script>
 @endsection

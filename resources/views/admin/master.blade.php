@@ -11,9 +11,11 @@ $currenttime = time();
         <meta name="robots" content="all,follow">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="{{ asset('login_css/css/admin.css?v='.$currenttime) }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('login_css/css/main.css') }}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
          <!--summernote-->
         <script src="{{ asset('login_user/jquery.min.js') }}"></script>
     </head>

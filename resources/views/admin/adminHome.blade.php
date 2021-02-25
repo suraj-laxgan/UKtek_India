@@ -19,6 +19,12 @@
             <button type="button" class="btn" onClick="window.location.href='{{ url('admin_study') }}'">
                 <i class="fa fa-bars"></i> Study Material Creator
             </button> 
+            <button type="button" class="btn" onClick="window.location.href='{{ url('admin_ques_package') }}'">
+                <i class="fa fa-book"></i> Exam Package
+            </button>
+            <button type="button" class="btn" onClick="window.location.href='{{ url('admin_question') }}'">
+                <i class="fa fa-cubes"></i> Question Entry
+            </button>
              
         </div>
         
