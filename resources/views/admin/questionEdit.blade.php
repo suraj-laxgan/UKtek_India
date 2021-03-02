@@ -25,7 +25,7 @@
                 <div class='column_middle'>
                     <div style=text-align:center;color:gray>Edit Question</div>
                     <hr style="height:2px;border-width:0;color:gray;background-color:#f2f2f2;margin-left:3px">
-                    <form action="{{url('admin_question_upload')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('admin_question_edit_upload')}}" method="POST" enctype="multipart/form-data">
                      @csrf
                         <div>
                             <input type="hidden" placeholder="Packagel Id" name="question_id" value="{{ $quesedit->question_id }}" >
@@ -37,6 +37,7 @@
                             <textarea class="drop" name="option_four" id="option_four" value="{{ $quesedit->option_four }}">{{ $quesedit->option_four}}</textarea>
                             <textarea class="drop" name="option_five" id="option_five" value="{{ $quesedit->option_five }}">{{ $quesedit->option_five}}</textarea>
                             <textarea class="drop" name="answer" id="answer" value="{{ $quesedit->answer }}">{{ $quesedit->answer}}</textarea>
+                            <input class="drop" name="marks"  id="marks"  value="{{ $quesedit->marks }}">
                             <select name="grade" id="grade"  class='drop'>
                                 <option value="">Select Grade</option>
                                 <option value=" 1">Grade 1</option>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminQuestionController;
+use App\Http\Controllers\Admin\AdminQuestionPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,14 +40,20 @@ Route::get('admin_ques_package',[AdminPackageController::class,'quesPackage'])->
 Route::post('admin_package_upload',[AdminPackageController::class,'uploadPackage'])->name('admin.package');
 Route::get('admin_package_view',[AdminPackageController::class,'packageView'])->name('admin.package_view');
 Route::get('admin_package_edit/{id}',[AdminPackageController::class,'packageEdit'])->name('admin.package_edit');
-Route::post('admin_package_upload',[AdminPackageController::class,'packagetUpload'])->name('admin.package_upload');
+Route::post('admin_package_Edit_upload',[AdminPackageController::class,'packagetUpload'])->name('admin.package_upload');
+
+//***************  Question to Package ******************//
+Route::get('admin_ques_to_package/{id}',[AdminQuestionPackageController::class,'packageToQuesEdit'])->name('admin.ques_to_package');
+// Route::post('admin_package_question_upload',[AdminQuestionPackageController::class,'uploadQuestionPackage'])->name('admin.question_package');
+Route::get('admin_ques_to_package_view/{id}',[AdminQuestionPackageController::class,'packQuestionView'])->name('admin.ques_to_package_view');
+
 
 //******************** Admin Question Entry ******************/
 Route::get('admin_question',[AdminQuestionController::class,'question'])->name('admin.question');
 Route::post('admin_question_upload',[AdminQuestionController::class,'uploadQuestion'])->name('admin.upques');
 Route::get('admin_question_view',[AdminQuestionController::class,'questionView'])->name('admin.question_view');
 Route::get('admin_question_edit/{id}',[AdminQuestionController::class,'questionEdit'])->name('admin.question_edit');
-Route::post('admin_question_upload',[AdminQuestionController::class,'questionUpload'])->name('admin.question_upload');
+Route::post('admin_question_edit_upload',[AdminQuestionController::class,'questionUpload'])->name('admin.question_upload');
 
 
 

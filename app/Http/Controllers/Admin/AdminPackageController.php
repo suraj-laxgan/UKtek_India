@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\package;
+use App\Models\Admin\questionPackage;
+
 
 class AdminPackageController extends Controller
 {
@@ -34,11 +36,37 @@ class AdminPackageController extends Controller
          $pack->package_name=$req->package_name;
          $pack->exam_type=$req->exam_type;
          $pack->subject=$req->subject;
-        //$pack->ques=$filename;        
-         //$pack->ques=$req->ques;
+         $pack->no_of_ques=$req->no_of_ques;
+         $pack->total_marks=$req->total_marks;
          $pack->create_dt = date('d-m-Y');
          $pack->create_time =  date('H:i:s');
          $pack->save();
+//**************************************************************************************************** */
+        for($i=1;$i<=$req->no_of_ques;$i++)
+        {
+            $max_question_id = questionPackage::orderBy('pack_question_id', 'desc')->value('pack_question_id');
+            if($max_question_id=="")
+            {
+                $pack_question_id = "PQ0000000001";
+            }
+            else{
+
+                $lastp = substr($max_question_id,2,10);
+                $lastpp = ++$lastp;
+                $last = str_pad($lastpp,10,"0",STR_PAD_LEFT);
+                $pack_question_id = 'PQ'.$last;
+            }
+        
+                            //********************* connect database with help of models and save the data ****************/ 
+                $ques= new questionPackage;
+                $ques->pack_question_id=$pack_question_id;
+                $ques->package_id=$package_id;
+                $ques->subject=$req->subject;
+                $ques->question_sl_no=$i;                               
+                $ques->create_dt = date('d-m-Y');
+                $ques->create_time =  date('H:i:s');
+                $ques->save();
+        }
          return redirect()->route('admin.ques_package');
     }
     // ************************* Package view ********************************* //
@@ -94,9 +122,12 @@ class AdminPackageController extends Controller
         $packup->package_name=$request->package_name;
         $packup->exam_type=$request->exam_type;
         $packup->subject=$request->subject;
+        $packup->no_of_ques=$request->no_of_ques;
+        $packup->total_marks=$request->total_marks;
         $packup->save();
-        return redirect()->route('admin.package_view',compact('packup'));
-
-
+        return redirect()->route('admin.package_view');
     }
+    
+    
+    
 }

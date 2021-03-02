@@ -42,6 +42,10 @@
                             <option value="English">English</option>
                         </select>
                     </div>
+                    <div>
+                     <input type="text" placeholder="No of Question" id="no_of_ques" name="no_of_ques" class="drop" autocomplete="off">
+                     <input type="text" placeholder="Total Marks" id="total_marks" name="total_marks" class="drop" autocomplete="off">
+                    </div>
                     <!-- <div>
                         <input type="file"  class="drop" name="ques" id="ques">
                     </div> -->

@@ -39,6 +39,8 @@
                         </div>
                         <div>
                             <textarea class="drop" name="answer" id="answer" placeholder="Answer"></textarea>
+                            <input class="drop" name="marks"  id="marks" placeholder="Marks" autocomplete="off">
+
                         </div>
                         <div>
                             <select name="grade" id="grade"  class='drop'>

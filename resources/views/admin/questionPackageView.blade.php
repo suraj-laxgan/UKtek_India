@@ -69,7 +69,9 @@
                             <td> {{ $package["package_name"]}}</td> 
                             <td> {{ $package["exam_type"]}}</td>
                             <td> {{ $package["subject"]}}</td>
-                            <td><a href ="{{url('admin_package_edit/' .$package['package_id'])}}"><button type="button" class="lightblue_button">Edit </button></a></td>
+                            <td><a href ="{{url('admin_package_edit/' .$package['package_id'])}}"><button type="button" class="lightblue_button">Edit </button></a>
+                            <a href ="{{url('admin_ques_to_package/' .$package['package_id'])}}"><button type="button" class="lightblue_button">View </button></a>
+                            </td>
                         </tr>
                         @endforeach 
                     </table>  

@@ -39,6 +39,7 @@ class AdminQuestionController extends Controller
         $ques->option_four=$req->option_four;
         $ques->option_five=$req->option_five;
         $ques->answer=$req->answer;
+        $ques->marks=$req->marks;
         $ques->grade=$req->grade;
         $ques->create_dt = date('d-m-Y');
         $ques->create_time =  date('H:i:s');
@@ -110,6 +111,7 @@ class AdminQuestionController extends Controller
         $option_four = $request->input('option_four');
         $option_five = $request->input('option_five');
         $answer = $request->input('answer');
+        $marks = $request->input('marks');
         $grade = $request->input('grade');
          question::where('question_id', $request->input('question_id'))->update([
             'question' => $question,
@@ -119,6 +121,7 @@ class AdminQuestionController extends Controller
             'option_four' => $option_four,
             'option_five' => $option_five,
             'answer' => $answer,
+            'marks' => $marks,
             'grade' => $grade,
          ]);
          return redirect()->route('admin.question_view');
