@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\question;
+use App\Models\Admin\Topic;
 
 
 class AdminQuestionController extends Controller
@@ -32,6 +33,8 @@ class AdminQuestionController extends Controller
         //********************* connect database with help of models and save the data ****************/ 
         $ques= new question;
         $ques->question_id=$question_id;
+        $ques->subject=$req->subject;
+        $ques->topic=$req->topic;
         $ques->question=$req->question;
         $ques->option_one=$req->option_one;
         $ques->option_two=$req->option_two;
@@ -45,6 +48,19 @@ class AdminQuestionController extends Controller
         $ques->create_time =  date('H:i:s');
         $ques->save();
         return redirect()->route('admin.question');
+    }
+    // ******************************* Search topic respect of subject ************************//
+    public function findTopicName(Request $r)
+    {
+        if($r->ajax())
+        {
+            $findtopic = Topic::where('subject',$r->subject)
+                //->where('topic_status','A')
+                ->orderBy('topic')
+                ->get();
+            return $findtopic;
+            //return response($r->all());
+        }
     }
 
     // ************************* Package view ********************************* //
@@ -60,8 +76,10 @@ class AdminQuestionController extends Controller
         // $option_five = request('option_five');
         $answer = request('answer');
         $grade = request('grade');
+        $subject = request('subject');
+        $topic = request('topic');
 
-         if($question_id != '' || $question != '' || $answer != '' || $grade != '' )
+         if($question_id != '' || $question != '' || $answer != '' || $grade != ''|| $subject != ''|| $topic != '' )
             {
                 $query  = question::query();
                 $all_question_id = '';
@@ -81,7 +99,15 @@ class AdminQuestionController extends Controller
                 {
                 $query = $query->where('grade', 'like', '%' . $grade . '%');
                 }
-                $query =  $query->select('question_id','question','answer','grade');
+                if($subject != '')
+                {
+                $query = $query->where('subject', 'like', '%' . $subject . '%');
+                }
+                if($topic != '')
+                {
+                $query = $query->where('topic', 'like', '%' . $topic . '%');
+                }
+                $query =  $query->select('question_id','question','answer','grade','subject','topic');
                 $ques = $query->get();
             }
         else{
@@ -104,6 +130,8 @@ class AdminQuestionController extends Controller
      public function questionUpload(Request $request)
      {
         //  return $request->input('question_id');
+        $subject = $request->input('subject');
+        $topic = $request->input('topic');
         $question = $request->input('question');
         $option_one = $request->input('option_one');
         $option_two = $request->input('option_two');
@@ -114,6 +142,8 @@ class AdminQuestionController extends Controller
         $marks = $request->input('marks');
         $grade = $request->input('grade');
          question::where('question_id', $request->input('question_id'))->update([
+             'subject'=>$subject,
+             'topic'=>$topic,
             'question' => $question,
             'option_one' => $option_one,
             'option_two' => $option_two,

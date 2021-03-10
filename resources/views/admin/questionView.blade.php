@@ -42,6 +42,13 @@
                                 <option value=" 9">Grade 9</option>
                                 <option value=" 10">Grade 10</option>
                             </select>
+                            <select name="subject" id="subject"  class='drop'onChange="findTopicName()">
+                                <option value="">Select Subject</option>
+                                <option value="English">English</option>
+                            </select>
+                            <select name="topic" id="topic"  class='drop'>
+                                <option value="">Select Topic</option>
+                            </select>
                            
                             <input type="submit" id ="search_question" value="Search Question" class="blue_button_new" style="color:#000066">
                             <a href="{{url('admin_question_view')}}"> <button type="button" class="blue_button_new" style="color:#000066"> Refresh
@@ -79,14 +86,40 @@
     
     <!-- //////////// for search in same page (jQuery) ///////////////// -->
     <script>
-    $("#search_question").click(function(){
-    //alert("The paragraph was clicked.");
-    var question_id = $("#question_id").val();
-    var question = $("#question").val();
-    var answer = $("#answer").val();
-    var grade = $("#grade").val();
-    window.location ='admin_question_view?question_id='+question_id+'&question='+question+'&answer='+answer+'&grade='+grade+';
-    console.log(question_id);
-    });
+    // $("#search_question").click(function(){
+    // //alert("The paragraph was clicked.");
+    // var question_id = $("#question_id").val();
+    // var question = $("#question").val();
+    // var answer = $("#answer").val();
+    // var grade = $("#grade").val();
+    // window.location ='admin_question_view?question_id='+question_id+'&question='+question+'&answer='+answer+'&grade='+grade+';
+    // console.log(question_id);
+    // });
+    //****************************************************** */<script>
+        function findTopicName()
+        {
+           // alert('hi');
+            var subject = $('#subject').val();
+       // alert(subject);
+            $.ajax({
+            type : 'post',
+            url  : "{{ url('find_topic_name')}}",
+            data: {'subject' : subject,
+                '_token':$('input[name=_token]').val()},   
+            datatype : 'html',
+            success:function(data)
+            {
+            var des_j = '<option value="">Select topic</option>';
+                        $.each( data, function( index, value )
+                        {
+                            // console.log(value);
+                            des_j += '<option value="'+value.topic+'">'+value.topic+'</option>';
+                            });
+            $('#topic').html(des_j);
+            //console.log(data)
+            } 
+        })
+        }
+    
     </script>
 @endsection

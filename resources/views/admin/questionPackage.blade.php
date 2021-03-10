@@ -16,7 +16,9 @@
             <div class='column_two'></div>
             <div class='column_two'>
                 <a href="{{url('admin_package_view')}}" style="text-decoration:none">+ View Package &nbsp;</a>
-                <a href="{{url('admin_ques_package')}}" style="text-decoration:none">+ Add Package &nbsp;</a>
+                <a href="{{url('admin_ques_package')}}" style="text-decoration:none">+ Add  Package &nbsp;</a>
+                <a href="{{url('admin_ques_to_package_view')}}" style="text-decoration:none">+ Add Question To Package &nbsp;</a>
+
             </div>
         </div>
         <div class='row'>

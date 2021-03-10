@@ -1,5 +1,5 @@
 <?php
-$currenttime = time();
+//$currenttime = time();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,10 +14,9 @@ $currenttime = time();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript" src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
         <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
-        <link rel="stylesheet" type="text/css" href="{{ asset('login_css/css/admin.css?v='.$currenttime) }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('login_css/css/main.css') }}">
          <!--summernote-->
-        <script src="{{ asset('login_user/jquery.min.js') }}"></script>
+        <!-- <script src="{{ asset('login_user/jquery.min.js') }}"></script> -->
     </head>
     <body>
         @section('header')

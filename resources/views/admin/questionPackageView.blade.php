@@ -17,6 +17,7 @@
             <div class='column_two'>
                 <a href="{{url('admin_package_view')}}" style="text-decoration:none">+ View Package &nbsp;</a>
                 <a href="{{url('admin_ques_package')}}" style="text-decoration:none">+ Add Package &nbsp;</a>
+                <a href="{{url('admin_ques_to_package_view')}}" style="text-decoration:none">+ Add Question To Package &nbsp;</a>
             </div>
         </div>
         <div class='mack12'> 
@@ -70,7 +71,9 @@
                             <td> {{ $package["exam_type"]}}</td>
                             <td> {{ $package["subject"]}}</td>
                             <td><a href ="{{url('admin_package_edit/' .$package['package_id'])}}"><button type="button" class="lightblue_button">Edit </button></a>
-                            <a href ="{{url('admin_ques_to_package/' .$package['package_id'])}}"><button type="button" class="lightblue_button">View </button></a>
+                            <!-- <a href ="{{url('admin_ques_to_package_view')}}"><button type="button" class="lightblue_button">View </button></a> -->
+                           
+                            <!-- <a href ="{{url('admin_ques_to_package_view/' .$package['package_id'])}}"><button type="button" class="lightblue_button">View </button></a> -->
                             </td>
                         </tr>
                         @endforeach 

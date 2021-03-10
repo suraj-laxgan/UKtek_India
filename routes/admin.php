@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminQuestionController;
 use App\Http\Controllers\Admin\AdminQuestionPackageController;
+use App\Http\Controllers\Admin\AdminSubTopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,17 +44,28 @@ Route::get('admin_package_edit/{id}',[AdminPackageController::class,'packageEdit
 Route::post('admin_package_Edit_upload',[AdminPackageController::class,'packagetUpload'])->name('admin.package_upload');
 
 //***************  Question to Package ******************//
-Route::get('admin_ques_to_package/{id}',[AdminQuestionPackageController::class,'packageToQuesEdit'])->name('admin.ques_to_package');
-// Route::post('admin_package_question_upload',[AdminQuestionPackageController::class,'uploadQuestionPackage'])->name('admin.question_package');
-Route::get('admin_ques_to_package_view/{id}',[AdminQuestionPackageController::class,'packQuestionView'])->name('admin.ques_to_package_view');
+Route::get('admin_ques_to_package_view',[AdminQuestionPackageController::class,'packQuestionView'])->name('admin.ques_to_package_view');
+Route::post('find_package_name',[AdminQuestionPackageController::class ,'findPackageName'])->name('admin.findpackname');
+Route::get('find_ques_to_package_view',[AdminQuestionPackageController::class,'findPackQuestionView'])->name('admin.find_ques_to_package_view');
+Route::post('ques_package_update',[AdminQuestionPackageController::class ,'quesPackUpdate'])->name('admin.quespackup');
 
 
 //******************** Admin Question Entry ******************/
 Route::get('admin_question',[AdminQuestionController::class,'question'])->name('admin.question');
 Route::post('admin_question_upload',[AdminQuestionController::class,'uploadQuestion'])->name('admin.upques');
+Route::post('find_topic_name',[AdminQuestionController::class ,'findTopicName'])->name('admin.findtopicname');
 Route::get('admin_question_view',[AdminQuestionController::class,'questionView'])->name('admin.question_view');
 Route::get('admin_question_edit/{id}',[AdminQuestionController::class,'questionEdit'])->name('admin.question_edit');
 Route::post('admin_question_edit_upload',[AdminQuestionController::class,'questionUpload'])->name('admin.question_upload');
+
+
+//******************** Admin Subject Topic ******************/
+//Route::get('admin_subtopic',[AdminSubTopicController::class,'subTopic'])->name('admin.subtopic');
+Route::get('admin_subtopic_view',[AdminSubTopicController::class,'subTopicView'])->name('admin.subtopicView');
+Route::post('admin_subtopic_up',[AdminSubTopicController::class,'addsubTopic'])->name('admin.subtopicUp');
+Route::get('admin_subtopic_edit/{id}',[AdminSubTopicController::class,'subTopicEdit'])->name('admin.subtopic_edit');
+Route::post('admin_subtopic_edit_up',[AdminSubTopicController::class,'subTopicEditUp'])->name('admin.subtopicEditUp');
+
 
 
 

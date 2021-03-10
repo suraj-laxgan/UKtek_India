@@ -25,6 +25,9 @@
             <button type="button" class="btn" onClick="window.location.href='{{ url('admin_question') }}'">
                 <i class="fa fa-cubes"></i> Question Entry
             </button>
+            <button type="button" class="btn" onClick="window.location.href='{{ url('admin_subtopic_view') }}'">
+                <i class="fa fa-group"></i> Subject Topic
+            </button>
              
         </div>
         

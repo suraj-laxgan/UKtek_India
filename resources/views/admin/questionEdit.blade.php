@@ -29,7 +29,17 @@
                      @csrf
                         <div>
                             <input type="hidden" placeholder="Packagel Id" name="question_id" value="{{ $quesedit->question_id }}" >
+                            <select name="subject" id="subject"  class='drop'onChange="findTopicName()">
+                                <option value="">Select Subject</option>
+                                <option value="English">English</option>
+                                <option {{ ($quesedit->subject)? 'selected="selected"':'' }} value="{{ $quesedit->subject }}">{{ $quesedit->subject}}</option>
 
+                            </select>
+                            <select name="topic" id="topic"  class='drop'>
+                                <option value="">Select Topic</option>
+                                <option {{ ($quesedit->topic)? 'selected="selected"':'' }} value="{{ $quesedit->topic }}">{{ $quesedit->topic}}</option>
+
+                            </select>
                             <textarea class="drop" name="question" id="question" value="{{ $quesedit->question }}" >{{ $quesedit->question}}</textarea>
                             <textarea class="drop" name="option_one" id="option_one"value="{{ $quesedit->option_one }}">{{ $quesedit->option_one}}</textarea>
                             <textarea class="drop" name="option_two" id="option_two" value="{{ $quesedit->option_two }}">{{ $quesedit->option_two}}</textarea>
@@ -61,4 +71,30 @@
             </div>
         </div>
     </div>
+    <script>
+        function findTopicName()
+        {
+            //alert('hi');
+            var subject = $('#subject').val();
+       // alert(subject);
+            $.ajax({
+            type : 'post',
+            url  : "{{ url('find_topic_name')}}",
+            data: {'subject' : subject,
+                '_token':$('input[name=_token]').val()},   
+            datatype : 'html',
+            success:function(data)
+            {
+            var des_j = '<option value="">Select topic</option>';
+                        $.each( data, function( index, value )
+                        {
+                            // console.log(value);
+                            des_j += '<option value="'+value.topic+'">'+value.topic+'</option>';
+                            });
+            $('#topic').html(des_j);
+            //console.log(data)
+            } 
+        })
+        }
+    </script>
 @endsection

@@ -28,6 +28,13 @@
                     <form action="{{url('admin_question_upload')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div>
+                            <select name="subject" id="subject"  class='drop'onChange="findTopicName()">
+                                <option value="">Select Subject</option>
+                                <option value="English">English</option>
+                            </select>
+                            <select name="topic" id="topic"  class='drop'>
+                                <option value="">Select Topic</option>
+                            </select>
                             <textarea class="drop" name="question" id="question" placeholder="Question"></textarea>
                         </div>
                         <div>
@@ -66,5 +73,32 @@
             </div>
         </div>    
     </div>
+    <!-- <input name="_token" value="{{ csrf_token() }}"> -->
+    <script>
+        function findTopicName()
+        {
+            //alert('hi');
+            var subject = $('#subject').val();
+       // alert(subject);
+            $.ajax({
+            type : 'post',
+            url  : "{{ url('find_topic_name')}}",
+            data: {'subject' : subject,
+                '_token':$('input[name=_token]').val()},   
+            datatype : 'html',
+            success:function(data)
+            {
+            var des_j = '<option value="">Select topic</option>';
+                        $.each( data, function( index, value )
+                        {
+                            // console.log(value);
+                            des_j += '<option value="'+value.topic+'">'+value.topic+'</option>';
+                            });
+            $('#topic').html(des_j);
+            //console.log(data)
+            } 
+        })
+        }
+    </script>
     
 @endsection

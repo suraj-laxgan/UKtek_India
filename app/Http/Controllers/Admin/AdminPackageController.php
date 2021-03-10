@@ -61,8 +61,9 @@ class AdminPackageController extends Controller
                 $ques= new questionPackage;
                 $ques->pack_question_id=$pack_question_id;
                 $ques->package_id=$package_id;
-                $ques->subject=$req->subject;
-                $ques->question_sl_no=$i;                               
+                $ques->package_name=$req->package_name;
+                $ques->exam_type=$req->exam_type;
+                $ques->question_sl_no=$i;
                 $ques->create_dt = date('d-m-Y');
                 $ques->create_time =  date('H:i:s');
                 $ques->save();
@@ -125,6 +126,12 @@ class AdminPackageController extends Controller
         $packup->no_of_ques=$request->no_of_ques;
         $packup->total_marks=$request->total_marks;
         $packup->save();
+        // $quesup= questionPackage::where('package_id', $request->package_id)->first();
+        // $quesup->package_name=$request->package_name;
+        // $quesup->exam_type=$request->exam_type; 
+        // $quesup->subject=$request->subject;
+        // $quesup->save();
+
         return redirect()->route('admin.package_view');
     }
     
